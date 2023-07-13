@@ -1,7 +1,7 @@
 # Change these
 server '52.66.69.75', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@form_builder.com:varsharaikwar/form_builder.git'
+set :repo_url,        'git@github.com:varsharaikwar/form_builder.git'
 set :application,     'post_comment_project'
 set :user,            'ubuntu'
 set :branch,          'master'
