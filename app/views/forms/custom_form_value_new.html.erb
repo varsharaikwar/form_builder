@@ -1,0 +1,45 @@
+<%= form_with url: custom_form_value_create_path(@form_field_values),  id: "create_form_id_for_#{@form.id}" do |form| %>
+    <%= form.hidden_field :form_id, value: @form.id %>
+    <% @form.form_fields.each do |form_field_value| %>
+        <% if form_field_value.field_type == "autocomplete" %>
+            <%= form.label form_field_value.label_name %>
+            <%= form.text_field "custom_form[#{@form.id}][#{form_field_value.label_name}]", class: "form-control total_custom_fields fulfilment-input custom_#{@form.id}_#{form_field_value.id}",style:"width:70%;margin-left:6px;"%>
+        <% elsif form_field_value.field_type == "checkbox-group" || form_field_value.field_type == "checkbox" %>
+            <%= form.label form_field_value.label_name %>
+            <% form_field_value.form_field_options.each do |field_option| %>
+                <%= hidden_field_tag "custom_form[#{@form.id}][#{form_field_value.label_name}][#{form_field_value.label_name == field_option.label_name ? field_option.option_name : field_option.label_name}]", 'false' %>
+                <%= check_box_tag "custom_form[#{@form.id}][#{form_field_value.label_name}][#{form_field_value.label_name == field_option.label_name ? field_option.option_name : field_option.label_name}]", true, field_option.select_type, class: "form-control total_custom_fields custom_checkbox_id_#{@form.id}" %><span><%= form_field_value.label_name == field_option.label_name ? field_option.option_name : field_option.label_name %></span>
+            <% end %>
+        <% elsif form_field_value.field_type == "button" %>
+            <%= button_tag :class => "#{form_field_value}" do %>
+                <%= form_field_value.label_name.to_sym%>
+            <% end %>
+        <% elsif form_field_value.field_type == "date" %>
+            <%= form.label form_field_value.label_name %>
+            <%= form.date_field form_field_value.label_name %><br>
+        <% elsif form_field_value.field_type == "number" %>
+            <%= form.label form_field_value.label_name %>
+            <%= form.number_field "custom_form[#{@form.id}][#{form_field_value.label_name}]", placeholder: form_field_value.field_type_change, min: 0, class: "form-control total_custom_fields fulfilment-input custom_field_#{@form.id}_#{form_field_value.id} custom_form_number_field_#{@form.id}", required: true %>        
+        <% elsif form_field_value.field_type == "paragraph" %>
+            <%= simple_format("#{form_field_value.label_name}")%>
+        <% elsif form_field_value.field_type == "radio-group" %>
+            <%= form.label form_field_value.label_name %>
+            <% form_field_value.form_field_options.each do |field_option| %>
+                <%= form.radio_button "custom_form[#{@form.id}][#{form_field_value.label_name}]", "#{form_field_value.label_name == field_option.label_name ? field_option.option_name : field_option.label_name}", checked: ActiveRecord::Type::Boolean.new.cast(field_option.select_type) , class: "form-control total_custom_fields fulfilment-input custom_field_#{@form.id}_#{form_field_value.id} custom_form_radio_button" %><span><%= form_field_value.label_name == field_option.label_name ? field_option.option_name : field_option.label_name %></span>
+            <% end %>     
+        <% elsif form_field_value.field_type == "select" || form_field_value.field_type == "dropdown" %>   
+            <%= form.label form_field_value.label_name %>  
+            <%= form.select "custom_form[#{@form.id}][#{form_field_value.label_name}]", options_for_select(form_field_value.form_field_options.collect { |p| [ form_field_value.label_name == p.label_name ? p.option_name : p.label_name, form_field_value.label_name == p.label_name ? p.option_name : p.label_name ] }, form_field_value.form_field_options.select{ |e| e.select_type == "t"}.pluck(:label_name)) %><br/>                       
+        <% elsif form_field_value.field_type == "text" %> 
+            <%= form.label form_field_value.label_name %> 
+            <%= form.text_field "custom_form[#{@form.id}][#{form_field_value.label_name}]", class: "form-control total_custom_fields fulfilment-input custom_#{@form.id}_#{form_field_value.id}",style:"width:70%;margin-left:6px;" %>
+        <% elsif form_field_value.field_type == "textarea" %>
+            <%= form.label form_field_value.label_name %> 
+            <%= form.text_area "custom_form[#{@form.id}][#{form_field_value.label_name}]", class: "form-control total_custom_fields fulfilment-input custom_field_#{@form.id}_#{form_field_value.id}" %>
+        <% end %>
+
+    <% end %>
+    <%= form.submit "Create"  %>
+<% end %>
+
+

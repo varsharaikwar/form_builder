@@ -1,0 +1,44 @@
+<div class="form-group student-details-form" >
+  <% if field.required == "true" %>
+
+  <% if field.tooltip.present? %>
+  <%= label_tag field.label_name.to_sym, "#{field.label_name}<span style='color: red;'> *</span> <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+
+  <% else %>
+    <%= label_tag :field, "#{field.label_name}<span style='color: red;'> *</span>".html_safe,class: "col-sm-12" %>
+  <% end %>
+    <div class="custom_checkbox col-sm-12">
+      <% field.form_field_options.each do |field_option| %>
+        <label class="custom_checkbox_label">
+          <%= check_box_tag field.label_name.to_sym,false,field_option.select_type, class: "form-control total_custom_fields fulfilment-input" %>
+          <span>
+          	<%= field.label_name == field_option.label_name ? field_option.option_name : field_option.label_name%>
+          </span>
+        </label>
+      <% end %>
+      <% if field.other == true%>
+        <label class='custom_checkbox_label'>
+          <input type='checkbox' name='<%= field.label_name %>' id='toggle_<%= field.id %>' value='false' class='form-control total_custom_fields fulfilment-input' onclick="display(<%= field.id %>)">
+          <span>Other</span>
+        </label>
+        <input class='other_check_tag' id="hidden_input_<%=field.id%>" type='text' style='display:none; padding: 0 8px;width:20%;margin: 0;'>
+      <% end%>
+    </div>
+  <% else %>
+  <% if field.tooltip.present? %>
+  <%= label_tag field.label_name.to_sym, "#{field.label_name} <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+  <% else %>
+  <%= label_tag :field, "#{field.label_name}".html_safe, class: "col-sm-12" %>
+  <% end %>
+    <div class="custom_checkbox col-sm-12">
+      <% field.form_field_options.each do |field_option| %>
+        <label class="custom_checkbox_label">
+          <%= check_box_tag field.label_name.to_sym,false,field_option.select_type, class: "form-control total_custom_fields fulfilment-input" %>
+          <span>
+          	<%= field.label_name == field_option.label_name ? field_option.option_name : field_option.label_name %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  <% end%>
+</div>

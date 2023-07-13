@@ -1,0 +1,12 @@
+<%= form_for @user do |f| %>
+    <div class="field">
+      <%= f.label :hobbies %>
+      <%= f.check_box :hobbies, {multiple: true}, 'reading', nil %>
+      <%= label_tag(:reading, "Reading") %>
+      <%= f.check_box :hobbies, {multiple: true}, 'writing', nil %>
+      <%= label_tag(:writing, "Writing") %>
+      <%= f.check_box :hobbies, {multiple: true}, 'painting', nil %>
+      <%= label_tag(:painting, "Painting") %>
+    </div>
+    <%= f.submit "Save" %>
+  <% end %>

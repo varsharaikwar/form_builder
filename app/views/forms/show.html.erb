@@ -1,0 +1,28 @@
+<% @form.form_fields.each do |field|%>
+    <% if field.field_type == "header" %>
+        <%=render "forms/custom_form_fields/header", field: field%>
+    <% elsif field.field_type == "button" %>
+        <%=render "forms/custom_form_fields/button", field: field%>
+    <% elsif field.field_type == "autocomplete" %>
+        <%=render "forms/custom_form_fields/autocomplete", field: field%>
+    <% elsif field.field_type == "checkbox-group" || field.field_type == "checkbox" %>
+        <%=render "forms/custom_form_fields/checkbox", field: field %> 
+    <% elsif field.field_type == "radio-group" || field.field_type == "radio" %>
+        <%=render "forms/custom_form_fields/radio", field: field %> 
+    <% elsif field.field_type == "textarea" %>
+        <%=render "forms/custom_form_fields/textarea", field: field %> 
+    <% elsif field.field_type == "select" || field.field_type == "dropdown" %>
+        <%=render "forms/custom_form_fields/select", field: field %>
+    <% elsif field.field_type == "number" %>
+        <%=render "forms/custom_form_fields/number", field: field %>
+    <% elsif field.field_type == "date" %>
+        <%=render "forms/custom_form_fields/date", field: field %>
+    <% elsif field.field_type == "time" %>
+        <%=render "forms/custom_form_fields/time", field: field %>
+    <% elsif field.field_type == "text" %>
+        <%=render "forms/custom_form_fields/text", field: field %>
+    <% elsif field.field_type == "paragraph" %>
+        <%=render "forms/custom_form_fields/paragraph", field: field %>
+    <% end %>
+<% end %>
+<%= link_to 'Use This Form', custom_form_value_new_path(@form, id: @form.id) %>

@@ -1,0 +1,37 @@
+<div class="form-group student-details-form">
+  <% if field.required == true %>
+  <% if field.tooltip.present? %>
+    <%= label_tag field.label_name.to_sym, "#{field.label_name}<span style='color: red;'> *</span> <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+  <% else %>
+    <%= label_tag :field, "#{field.label_name}<span style='color: red;'> *</span>".html_safe,class: "col-sm-12" %>
+  <% end %>
+    <div class="col-sm-12">
+      <% @array = [] %>
+      <% field.form_field_options.each do | field_option|
+        @array.push(field_option)
+       end %>
+      <% if field.field_type == "dropdown" %>
+        <%= select_tag field.label_name,options_from_collection_for_select(@array, "label_name","option_name","id"),prompt: field.field_placeholder,class: "custom_select width_100", multiple: field.multiple %><br>
+      <% else %>
+        <%= select_tag field.label_name,options_from_collection_for_select(@array, "label_name","label_name","id") %><br>
+      <% end %>
+    </div>
+  <% else %>
+    <% if field.tooltip.present? %>
+      <%= label_tag field.label_name.to_sym, "#{field.label_name} <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+    <% else %>
+      <%= label_tag :field, "#{field.label_name}".html_safe, class: "block-label col-sm-12" %>
+    <% end %>
+    <div class="col-sm-12">
+      <% @array = [] %>
+      <% field.form_field_options.each do | field_option|
+        @array.push(field_option)
+       end %>
+      <% if field.field_type == "dropdown" %>
+        <%= select_tag field.label_name,options_from_collection_for_select(@array, "label_name","option_name","id"), prompt: field.field_placeholder, class: "custom_select width_100", multiple: field.multiple %><br>
+      <% else %>
+        <%= select_tag field.label_name,options_from_collection_for_select(@array, "label_name","label_name","id") %><br>
+      <% end %>
+    </div>
+  <% end %>
+</div>

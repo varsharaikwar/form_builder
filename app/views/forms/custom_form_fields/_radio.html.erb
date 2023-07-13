@@ -1,0 +1,36 @@
+<div class="form-group student-details-form">
+  <% if field.required == true %>
+    <% if field.tooltip.present? %>
+    <%= label_tag field.label_name.to_sym, "#{field.label_name}<span style='color: red;'> *</span> <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+    <% else %>
+      <%= label_tag :field, "#{field.label_name}<span style='color: red;'> *</span>".html_safe,class: "col-sm-12" %>
+    <% end %>
+    <div class="custom_radio col-sm-12">
+      <% field.form_field_options.each do |field_option| %>
+        <label class="custom_radio_label">
+	        <%= radio_button_tag field.label_name,field_option.option_name, ActiveRecord::Type::Boolean.new.cast(field_option.select_type) %>
+	        <span>
+	        	<%= field.label_name == field_option.label_name ? field_option.option_name : field_option.label_name %>
+	        </span>
+	        <span style="color: red;"></span>
+        </label>
+      <% end %>
+    </div>
+  <% else %>
+    <% if field.tooltip.present? %>
+     <%= label_tag field.label_name.to_sym, "#{field.label_name} <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+    <% else %>
+      <%= label_tag :field, "#{field.label_name}".html_safe, class: "col-sm-12" %>
+    <% end %>
+    <div class="custom_radio col-sm-12">
+      <% field.form_field_options.each do |field_option| %>
+        <label class="custom_radio_label">
+	        <%= radio_button_tag field.label_name,field_option.option_name, ActiveRecord::Type::Boolean.new.cast(field_option.select_type) %>
+	        <span>
+	        	<%= field.label_name == field_option.label_name ? field_option.option_name : field_option.label_name %>
+	        </span>
+        </label>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,55 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
+<script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
+<div class="select_field">
+            <%= label_tag 'Form Name :' %>
+            <%= text_field_tag :name, nil, placeholder: 'Enter form name', required: true, class: "form-control", id: "form_name" %><br>
+            <span class="error" style="color:red;display:none;margin-left: 88px;">*Please Enter Form Name</span>
+          </div>
+<div id='build-wrap'>
+</div>
+
+<script type="text/javascript">
+  const formBuilder = $("#build-wrap").formBuilder();
+  var options = {
+    onSave: function (evt, form_fields) {
+      const form_name = $("#form_name").val();
+      if(form_name == "") {
+        $('.error').show();
+        $('html, body').animate({
+          scrollTop: $("#new_custom_forms").offset().top
+        }, 50);
+        return false;
+        toggleEdit(false);
+        $(".render-wrap").formRender({ form_fields });
+      }
+      $.ajax({
+        type : "POST",
+        url :  '<%= custom_form_create_path %>', 
+        dataType: 'json',
+        data : {form_fields, form_name},
+        success: function(data) {
+          window.location.href = data.url;
+          toastr.success(data.message);
+        }
+       }, 1000);
+
+    }
+  };
+  $(formBuilder).formBuilder(options);
+  setTimeout(() => {
+    $('.formbuilder-icon-file').hide()
+    $('.formbuilder-icon-hidden').hide()
+  }, 1000)
+
+
+</script>
+
+
+<style>
+    body {
+    padding: 0;
+    margin: 10px 0;
+    background: #f2f2f2 url('https://formbuilder.online/assets/img/noise.png');
+    }
+</style>

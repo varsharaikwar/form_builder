@@ -1,0 +1,21 @@
+<div class="form-group student-details-form">
+  <% if field.required == true %>
+  <% if field.tooltip.present? %>
+    <%= label_tag field.label_name.to_sym, "#{field.label_name}<span style='color: red;'> *</span> <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+  <% else %>
+    <%= label_tag :field, "#{field.label_name}<span style='color: red;'> *</span>".html_safe,class: "col-sm-12" %>
+  <% end %>
+    <div class="col-sm-12">
+     <%= number_field_tag field.label_name %><br>
+    </div>
+  <% else %>
+    <% if field.tooltip.present? %>
+      <%= label_tag field.label_name.to_sym, "#{field.label_name} <a href='#' data-toggle='tooltip' title='#{field.tooltip}'><i class='fa fa-question-circle'></i></a>".html_safe, class: "col-sm-12" %>
+    <% else %>
+      <%= label_tag :field, "#{field.label_name}".html_safe, class: "block-label col-sm-12 " %>
+    <% end %>
+    <div class="col-sm-12">
+     <%= number_field_tag field.label_name %><br>
+    </div>
+  <% end %>
+</div>
