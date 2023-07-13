@@ -47,7 +47,6 @@ class FormsController < ApplicationController
             custom_form = @form_field.first
             custom_form.form_fields.order(created_at: :asc).each do |form_field|
                 if form_field.field_type == "checkbox-group"
-                    debugger 
                     params[:custom_form][key][form_field.label_name].each do |label,checkbox_option|
                         FormFieldValue.create(form_field_value: label, label_name: form_field.label_name, form_name: custom_form.name, form_field_id: form_field.id, form_id: custom_form.id, field_type: form_field.field_type)
                     end
