@@ -2,7 +2,7 @@
 server '52.66.69.75', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:varsharaikwar/form_builder.git'
-set :application,     'post_comment_project'
+set :application,     'form_builder'
 set :user,            'ubuntu'
 set :branch,          'master'
 set :puma_threads,    [4, 16]
