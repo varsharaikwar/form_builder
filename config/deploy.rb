@@ -1,5 +1,5 @@
 # Change these
-server '52.66.69.75', port: 22, roles: [:web, :app, :db], primary: true
+server '65.0.71.80', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:varsharaikwar/form_builder.git'
 set :application,     'form_builder'
